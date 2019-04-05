@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"    
+xmlns:h="http://java.sun.com/jsf/html"    
+xmlns:f="http://java.sun.com/jsf/core"    
+xmlns:ui="http://java.sun.com/jsf/facelets"    
+xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+<title>Agence de voyage</title>
+
+</h:head>
+
+
+<h:body>
+
+<style>
+#bandeau {
+align=right;
+
+}
+
+
+#im {
+min-width:1500 px;
+width:1500 px;
+
+}
+
+
+#inner {
+
+float:left;
+width:50%;
+
+
+}
+
+#pi {
+
+
+float:right;
+
+auto;
+
+}
+
+#ti {
+
+text-align:center;
+float:center;
+auto;
+
+}
+#po{
+float: left;
+
+}
+#py{ float: right;
+padding-left:20%;
+
+}
+
+
+</style>
+
+<ui:decorate template="/WEB-INF/templates/BasicTemplate.xhtml">
+<ui:define name="content">
+<h:form>
+ 
+
+
+
+</h:form>
+
+
+
+<div id="ti"><h3>Bienvenue sur Adaming Voyage</h3>
+<p:graphicImage name="images/#{logo2.jpg}"/>
+</div>
+
+
+
+<div id="outer" style="width:100%" >
+  <div id="inner" ><p:galleria value="#{bandeauBean.images}"  var="image" panelWidth="500" panelHeight="313" showCaption="true">
+    <p:graphicImage name="images/#{image}" alt="Avec un million de lacs et de rivi&eacute;res, le Portugal est une destination id&eacute;ale pour 
+    des s&eacute;jours de soins ax&eacute;s sur les bienfaits de l&apos;eau." title="Portugal" height="300px" width="1000px"/>
+</p:galleria></div>
+</div> 
+
+
+
+<div id="ppi" style="width:100%" >
+  <div id="pi" ><p:galleria value="#{chineBean.images}"  var="image" panelWidth="500" panelHeight="313" showCaption="true">
+    <p:graphicImage name="Chine/#{image}" alt="Image Description for " title="Chine" height="300px" width="500px" />
+</p:galleria></div>
+</div>  
+
+
+<div id="ppo" style="width:100%" >
+  <div id="po" ><p:galleria value="#{russieBean.images}"  var="image" panelWidth="500" panelHeight="313" showCaption="true">
+    <p:graphicImage name="Russie/#{image}" alt="Image Description for #{image}" title="Russie" height="300px" width="500px"/>
+</p:galleria></div>
+</div> 
+
+<div id="ppy" style="width:100%" >
+  <div id="py" ><p:galleria value="#{formuleBean.images}"  var="image" panelWidth="500" panelHeight="313" showCaption="true">
+    <p:graphicImage name="formule/#{image}" alt="Image Description for #{image}" title="Formules: Promotion -40%" height="300px" width="500px" />
+</p:galleria></div>
+
+</div> 
+
+
+	</ui:define>
+</ui:decorate>
+
+</h:body>
+
+</html>

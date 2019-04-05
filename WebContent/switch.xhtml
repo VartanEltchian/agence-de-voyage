@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"    
+xmlns:h="http://java.sun.com/jsf/html"    
+xmlns:f="http://java.sun.com/jsf/core"    
+xmlns:ui="http://java.sun.com/jsf/facelets"    
+xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+<title>Insert title here</title>
+
+
+
+
+
+</h:head>
+<h:body>
+<style>
+#bandeau {
+align=center;
+
+}
+#bn {
+padding: 5em;
+
+}
+</style>
+
+
+<h:form>
+ 
+<div id="bandeau" >
+<p:galleria id="bn" value="#{imagesView.images}"  var="image" panelWidth="1500" panelHeight="200" showCaption="true">
+    <p:graphicImage name="/images/#{image}" alt="Bienvenue au Brésil" title="Chez Gérard"/>
+</p:galleria>
+</div>
+
+</h:form>
+
+
+</h:body>
+</html>

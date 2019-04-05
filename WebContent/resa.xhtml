@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>JSF 2.2 Hello World</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDayOfWeek: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Sólo hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día'
+    };
+</script>
+ 
+<script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+    }
+    //]]>
+</script>
+
+
+
+</h:head>
+
+<h:body bgcolor="white">
+
+
+
+	<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
+		<ui:define name="content">
+			<h4>bienvenue sur la page de reservation</h4>
+
+			<div class="p-grid">
+				<div class="p-col">
+					<div class="box">
+<h:form>
+
+						<ui:repeat var="p" value="#{monBean.listePays}">
+							<tr>
+								<fieldset>
+									<td>
+										<!-- #{p.nomPays} -->
+										<br />
+									<p:commandButton value="#{p.nomPays}" update="sidebar2"
+											oncomplete="PF('sidebar2').show()" action="#{monBean.changerafficher(p)}" /><br />
+											
+											
+											
+									</td>
+								</fieldset>
+							</tr>
+						</ui:repeat>
+
+
+
+</h:form>
+
+
+
+
+
+					</div>
+				</div>
+
+				<!-- div id="#panel1" class="p-col-fixed" style="width:300px; ">
+            <div class="box"-->
+				<p:sidebar id="sidebar2" widgetVar="sidebar2" position="right"
+					baseZIndex="10000">
+<ui:repeat var="p" value="#{monBean.listePays}">
+				 
+					
+					<ui:repeat var="hot" value="#{p.listeHostels}" rendered="#{p.afficher}">
+							 
+
+								 <br /><fieldset>
+								<h:outputText value="Hotel : #{hot.nom}"/><br /> 
+								<h:outputText value="Adresse : #{hot.adresse}"/><br /> 
+								<h:outputText value="Num de telephone : #{hot.telephone}"/><br />
+								<h:outputText value="#{hot.prixnuit} euros par nuit"/><br /> 
+								
+								<!-- on click sur button: ouvre une popup avec calendar, lorsqu'on choisis dates on fait action et on affecte le nb de jours a lobjet resa. ensuite on aura une nouvelle methode dans le bean qui prend en entree l'objet resa et qui calcul prix par nuit * nb de jours et qui retourne le result dans un outputtext -->
+									
+									<h:panelGrid>
+        
+  									  <p:commandButton value="Réserver" type="button" action = "#{monBean.hotelselec(hot)}" onclick="PF('dlg2').show();PF('sidebar2').hide();" />
+        
+									</h:panelGrid>
+									
+ 				
+ </fieldset>
+
+						</ui:repeat>
+ 
+						<!-- <br /><p:commandButton value="#{z.listeHostels}" oncomplete="PF('sidebar2').show()" /><br />  -->
+
+
+</ui:repeat>
+	
+	
+	
+	
+						<p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()" />
+						
+						
+
+
+
+
+
+ 
+				</p:sidebar>
+
+
+				<!--/div>
+        </div-->
+
+			</div>
+
+
+ <p:dialog header="Reservation" widgetVar="dlg2" modal="true" height="550" width="800">
+								    	<h:outputText value="Choisissez vos dates de début et de fin" /> <br />
+								    	
+								    	<h:form id="form">
+    <p:growl id="msgs" showDetail="true" />
+ 
+    <h:panelGrid columns="2" cellpadding="5">
+   
+        <p:outputLabel for="range" value="Range Selection:" />
+        <p:datePicker id="range" selectionMode="range" value="#{calendarView.range}" readonlyInput="true" />
+        
+        
+ 
+    </h:panelGrid>
+    
+    <h:outputText value="nb de jours choisis #{calendarView.nbjours}" /> <br />
+ 
+    <p:commandButton value="Submit" update="msgs" action="#{calendarView.click}" icon="pi pi-check" />
+ 
+		    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+		        <p:panelGrid id="display" columns="4" columnClasses="label,value,label,value">
+		           
+		 
+		             
+		            <h:outputText value="Range Selection:" />
+		            <ui:repeat var="date" value="#{calendarView.range}" varStatus="status" size="2">
+		                #{status.first ? '' : '-'}
+		                <h:outputText value="#{date}">
+		                    <f:convertDateTime pattern="MM/dd/yyyy" />
+		                </h:outputText>
+		            </ui:repeat>
+		 
+		         
+		        </p:panelGrid>
+		    </p:dialog>
+		</h:form>
+						
+										    	
+	</p:dialog> 
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+
+
+
